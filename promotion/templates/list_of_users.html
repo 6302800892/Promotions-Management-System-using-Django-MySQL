@@ -1,0 +1,88 @@
+{% extends 'layout/after_login.html' %}
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">End Users</h1>
+
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List of End Users</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Location</th>
+                            <th>Interests</th>
+                            <th>Joined At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in query_response %}
+                        <tr>
+                            <td>{{ row.0 }}</td>
+                            <td>{{ row.1 }}</td>
+                            <td>{{ row.2 }}</td>
+                            <td>{{ row.3 }}</td>
+                            <td>{{ row.4 }}</td>
+                            <td>{{ row.5 }}</td>
+                            <td>{{ row.6 }}</td>
+                            <td>{{ row.7 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>    
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{%comment%}
+<html>
+    <head>
+        <title>List of Users</title>
+    </head>
+    <body>
+        <p><h2>List of Users</h2></p>
+        <table>
+            <thead>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>age</th>
+                <th>gender</th>
+                <th>Location</th>
+                <th>Interests</th>
+                <th>Joined At</th>
+            </thead>
+            <tbody>
+    {% for row in query_response %}
+    <tr>
+        <td>{{ row.0 }}</td>  
+        <td>{{ row.1 }}</td> 
+        <td>{{ row.2 }}</td>  
+        <td>{{ row.3 }}</td>  
+        <td>{{ row.4 }}</td>  
+        <td>{{ row.5 }}</td>  
+        <td>{{ row.6 }}</td>  
+        <td>{{ row.7 }}</td>
+          
+    </tr>
+    {% endfor %}
+</tbody>
+
+        </table>
+        <a href="{% url 'logoutpage' %}"><button>Logout</button></a>
+    </body>
+</html>
+{%endcomment%}

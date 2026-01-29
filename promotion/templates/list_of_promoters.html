@@ -1,0 +1,139 @@
+{% extends 'layout/after_login.html' %}
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Promoters</h1>
+
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List of Promoters</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Super User</th>
+                            <th>Active</th>
+                            <th>Logged In</th>
+                            <th>Company</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in query_response %}
+                        <tr>
+                            <td>{{ row.0 }}</td>
+                            <td>{{ row.1 }}</td>
+                            <td>{{ row.2 }}</td>
+                            <td>{{ row.3 }}</td>
+                            <td>{{ row.4 }}</td>
+                            <td>{{ row.5 }}</td>
+                            <td>{{ row.6 }}</td>
+                            <td>{{ row.7 }}</td>
+                            <td>{{ row.8 }}</td>
+
+                            <!-- Approve -->
+                            <td>
+                                <form method="POST" action="{% url 'approve_promoters' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" name="approve" value="{{ row.0 }}" class="btn btn-success btn-sm">Approve</button>
+                                </form>
+                            </td>
+
+                            <!-- Reject -->
+                            <td>
+                                <form method="POST" action="{% url 'reject_promoters' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" name="reject" value="{{ row.0 }}" class="btn btn-danger btn-sm">Reject</button>
+                                </form>
+                            </td>
+
+                            <!-- Update -->
+                            <td>
+                                <form method="POST" action="{% url 'update_promoters' row.0 %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                </form>
+                            </td>
+
+                            <!-- Delete -->
+                            <td>
+                                <form method="POST" action="{% url 'delete_promoter' row.0 %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-warning btn-sm">Delete</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{% comment %}
+<html>
+<body>
+        <h2>List of Promoters (Username: {{ user.username }})</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>username</th>
+                    <th>email</th>
+                    <th>age</th>
+                    <th>gender</th>
+                    <th>is_super_user</th>
+                    <th>is_active</th>
+                    <th>is_logged_in</th>
+                    <th>companyname</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in query_response %}
+                <tr>
+                    <td>{{ row.0 }}</td>
+                    <td>{{ row.1 }}</td>
+                    <td>{{ row.2 }}</td>
+                    <td>{{ row.3 }}</td>
+                    <td>{{ row.4 }}</td>
+                    <td>{{ row.5 }}</td>
+                    <td>{{ row.6 }}</td>
+                    <td>{{ row.7 }}</td>
+                    <td>{{ row.8 }}</td>
+                        <td><form method="POST" action="{% url 'approve_promoters' %}">
+                            {% csrf_token %}
+                            <button type="submit" name="approve" value="{{ row.0 }}">Approve</button>
+                        </form></td>
+                        <td><form method="POST" action="{% url 'reject_promoters' %}">
+                            {% csrf_token %}
+                            <button type="submit" name="reject" value="{{ row.0 }}">Reject</button>
+                        </form></td>
+                        <td><form method="POST" action="{% url 'update_promoters' row.0 %}">
+                            {% csrf_token %}
+                            <button type="submit" name="update" value="{{ row.0 }}">Update</button>
+                        </form></td>
+                        <td><form method="POST" action="{% url 'delete_promoter' row.0 %}">
+                            {% csrf_token %}
+                            <button type="submit" name="delete" value="{{ row.0 }}">Delete</button>
+                        </form></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'logoutpage' %}"><button>Logout</button></a>
+</body>
+</html>
+{% endcomment %}

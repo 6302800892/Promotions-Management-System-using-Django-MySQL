@@ -1,0 +1,108 @@
+{% extends 'layout/after_login.html' %}
+{% block body %}
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create Promotion!</h1>
+                            {% if error %}
+                            <div class="alert alert-danger font-weight-bold" role="alert">
+                                {{ error }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <form class="user" method="POST" action="{% url 'savepromotions' %}">
+                            {% csrf_token %}
+
+                            <!-- Title & Description -->
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="title">Title:</label>
+                                    <input type="text" class="form-control form-control-user" id="title" name="title" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="description">Description:</label>
+                                    <input type="text" class="form-control form-control-user" id="description" name="description" required>
+                                </div>
+                            </div>
+
+                            <!-- Start & End Dates -->
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="start_date">Start Date:</label>
+                                    <input type="date" class="form-control form-control-user" id="start_date" name="start_date" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="end_date">End Date:</label>
+                                    <input type="date" class="form-control form-control-user" id="end_date" name="end_date" required>
+                                </div>
+                            </div>
+
+                            <!-- Interest -->
+                            <div class="form-group">
+                                <label for="intrest">Intrest:</label>
+                                <select name="intrest" id="intrest" class="form-control" required>
+                                    <option value="">--Choose an intrest--</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Music">Music</option>
+                                    <option value="Movies">Movies</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Reading">Reading</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                Create Promotion
+                            </button>
+                        </form>
+
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="{% url 'logoutpage' %}"><h6>Logout!</h6></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock body %}
+
+{%comment%}
+<html>
+    <body>
+        <p>User : {{loggedin_promoter}}</p>
+        <form method="POST" action="{% url 'savepromotions' %}">
+        {% csrf_token %}
+        <label>Title:</label>
+        <input type="text" name="title" placeholder="title"required><br>
+        <label>Description:</label>
+        <input type="text" name="description" placeholder="description"required><br>
+        <label>start_date:</label>
+        <input type="date" name="start_date" placeholder="start_date"required><br>
+        <label>end_date:</label>
+        <input type="date" name="end_date" placeholder="end_date"required><br>
+        <label>target_filters</label>
+        <select name="intrest" id="intrest" required>
+            <option value="">--Choose an interest--</option>
+            <option value="Sports">Sports</option>
+            <option value="Music">Music</option>
+            <option value="Movies">Movies</option>
+            <option value="Travel">Travel</option>
+            <option value="Reading">Reading</option>
+        </select><br><br>
+        <button type="submit">Submit</button>
+        </form>
+        <a href="{% url 'logoutpage' %}"><button>Logout</button></a>
+    </body>
+</html>
+{%endcomment%}

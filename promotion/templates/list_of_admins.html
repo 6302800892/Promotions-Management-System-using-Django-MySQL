@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>List of Admins</title>
+    </head>
+    <body>
+        {% for admins in query_response %}
+            {{ admins.0 }}<br>
+        {% endfor %}
+        <a href="{% url 'logoutpage' %}"><button>Logout</button></a>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+{% extends 'layout/after_login.html' %}
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Active Promotions Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List of Promotions (Active)</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Promoter ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Target Filters</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for response in query1_response %}
+                        <tr>
+                            <td>{{ response.0 }}</td>
+                            <td>{{ response.1 }}</td>
+                            <td>{{ response.2 }}</td>
+                            <td>{{ response.3 }}</td>
+                            <td>{{ response.4 }}</td>
+                            <td>{{ response.5 }}</td>
+                            <td>{{ response.6 }}</td>
+                            <td>
+                                <a href="{% url 'editpromotions' response.1 %}" class="btn btn-success btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{%comment%}
+
+<html>
+    <body>
+        <table>
+            <thead>
+                <th>id</th>
+                <th>promoter_id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>start_date</th>
+                <th>end_date</th>
+                <th>target_filters</th>
+            </thead>
+            {%for response in query1_response%}
+            <tr>
+                <td>{{response.0}}</td>
+                <td>{{response.1}}</td>
+                <td>{{response.2}}</td>
+                <td>{{response.3}}</td>
+                <td>{{response.4}}</td>
+                <td>{{response.5}}</td>
+                <td>{{response.6}}</td><br>
+            </tr>
+            {%endfor%}
+        </table>
+        <a href="{% url 'logoutpage' %}"><button>Logout</button></a>
+        
+    </body>
+</html>
+{%endcomment%}

@@ -1,0 +1,141 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<body class="bg-gradient-primary">
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create User Account!</h1>
+
+                            {% if error %}
+                            <div class="alert alert-danger" role="alert" style="font-weight: bold;">
+                                {{ error }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <form class="user" method="POST" action="{% url 'end_user' %}">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="username">Username:</label>
+                                    <input type="text" class="form-control form-control-user" id="username" name="username" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="exampleInputPassword">Password:</label>
+                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="password" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control form-control-user" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="age">Age:</label>
+                                    <input type="number" class="form-control form-control-user" id="age" name="age" min="1" max="150" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Gender:</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" value="Male" required>
+                                        <label class="form-check-label">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" value="Female" required>
+                                        <label class="form-check-label">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>User Type:</label><br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="user" value="user" required>
+                                    <label class="form-check-label">User</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Interest:</label>
+                                <select name="intrest" id="intrest" class="form-control" required>
+                                    <option value="">--Choose an interest--</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Music">Music</option>
+                                    <option value="Movies">Movies</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Reading">Reading</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                Register Account
+                            </button>
+                        </form>
+
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+{% endblock body %}
+{%comment%}
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="{% url 'end_user' %}">
+        {% csrf_token %}
+        <h2>User Registration Form</h2>
+
+        <label>Username:</label><br>
+        <input type="text" name="username" placeholder="Username" required><br>
+        <label>Password:</label><br>
+        <input type="password" name="password" placeholder="password" required><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+
+        <label>Age:</label><br>
+        <input type="number" name="age" min="1" max="150" placeholder="Enter Age" required><br>
+
+        <label>Location:</label><br>
+        <input type="text" name="location" placeholder="Location" required><br>
+
+        <label>Gender:</label><br>
+        <input type="radio" name="gender" value="Male" required> Male
+        <input type="radio" name="gender" value="Female" required> Female<br>
+
+        <label>User:</label><br>
+        <input type="radio" name="user" value="user" required> User <br>
+
+        <label>Intrest:</label><br>
+        <select name="intrest" id="intrest" required>
+            <option value="">--Choose an interest--</option>
+            <option value="Sports">Sports</option>
+            <option value="Music">Music</option>
+            <option value="Movies">Movies</option>
+            <option value="Travel">Travel</option>
+            <option value="Reading">Reading</option>
+        </select><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+{%endcomment%}

@@ -1,0 +1,51 @@
+{% extends 'layout/after_login.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Edit Promotions</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if query_response %}
+                <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Promo ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Target Filters</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in query_response %}
+                        <tr>
+                            <form method="POST" action="{% url 'editpromotions' row.1 %}">
+                                {% csrf_token %}
+                                <td>{{ row.0 }}
+                                    <input type="hidden" name="promo_id" value="{{ row.0 }}">
+                                </td>
+                                <td>{{ row.2 }}</td>
+                                <td>{{ row.3 }}</td>
+                                <td><input type="date" name="start_date" class="form-control" value="{{ row.4 }}"></td>
+                                <td><input type="date" name="end_date" class="form-control" value="{{ row.5 }}"></td>
+                                <td>{{ row.6 }}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                                </td>
+                            </form>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="alert alert-info text-center">No promotions found.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

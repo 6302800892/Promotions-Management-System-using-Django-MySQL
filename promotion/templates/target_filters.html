@@ -1,0 +1,82 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Promotions</h1>
+
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List of Target Filters</h6>
+        </div>
+        <div class="card-body">
+            {% if query1_response %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Id</th>
+                                <th>Promoter ID</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Target Filters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for response in query1_response %}
+                            <tr>
+                                <td>{{ response.0 }}</td>
+                                <td>{{ response.1 }}</td>
+                                <td>{{ response.2 }}</td>
+                                <td>{{ response.3 }}</td>
+                                <td>{{ response.4 }}</td>
+                                <td>{{ response.5 }}</td>
+                                <td>{{ response.6 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    No promotions found.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock body %}
+
+{%comment%}
+<html>
+    <body>
+        <p>{{no_promotions_found}}</p>
+        <table>
+            <thead>
+                <th>id</th>
+                <th>promoter_id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>start_date</th>
+                <th>end_date</th>
+                <th>target_filters</th>
+            </thead>
+            {%for response in query1_response%}
+            <tr>
+                <td>{{response.0}}</td>
+                <td>{{response.1}}</td>
+                <td>{{response.2}}</td>
+                <td>{{response.3}}</td>
+                <td>{{response.4}}</td>
+                <td>{{response.5}}</td>
+                <td>{{response.6}}</td><br>
+            </tr>
+            {%endfor%}
+        </table>       
+    </body>
+</html>
+{%endcomment%}

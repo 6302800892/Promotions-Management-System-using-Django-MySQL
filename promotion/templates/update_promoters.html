@@ -1,0 +1,117 @@
+{% extends 'layout/after_login.html' %}
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Promoters</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List of Promoters</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if query_response %}
+                <table class="table table-bordered table-hover align-middle text-center" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Super User</th>
+                            <th>Active</th>
+                            <th>Company Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in query_response %}
+                        <tr>
+                            <form method="POST" action="{% url 'update_promoters_sql' row.0 %}">
+                                {% csrf_token %}
+                                <td>{{ row.0 }}</td>
+                                <td>{{ row.1 }}</td>
+                                <td><input type="email" class="form-control" name="email" value="{{ row.2 }}" ></td>
+                                <td><input type="number" class="form-control" name="age" value="{{ row.3 }}" min="1" max="150" required></td>
+                                <td>
+                                    <select name="gender" class="form-control">
+                                        <option value="Male" {% if row.4 == "Male" %}selected{% endif %}>Male</option>
+                                        <option value="Female" {% if row.4 == "Female" %}selected{% endif %}>Female</option>
+                                    </select>
+                                </td>
+                                <td>{{ row.5 }}</td>
+                                <td>{{ row.6 }}</td>
+                                <td><input type="text" class="form-control" name="companyname" value="{{ row.7 }}" required></td>
+                                <td>
+                                    <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                                </td>
+                            </form>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="alert alert-info text-center">No promoters found.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+{%comment%}
+<html>
+  <body>
+    <table>
+      <thead>
+        <th>user_id</th>
+        <th>name</th>
+        <th>E-mail</th>
+        <th>age</th>
+        <th>gender</th>
+        <th>is_super_user</th>
+        <th>is_active</th>
+        <th>companyname</th>
+      </thead>
+      <tbody>
+        {% for row in query_response%}
+        <tr>
+          <td>{{row.0}}</td>
+          <td>{{row.1}}</td>
+          <td>{{row.2}}</td>
+          <td>{{row.3}}</td>
+          <td>{{row.4}}</td>
+          <td>{{row.5}}</td>
+          <td>{{row.6}}</td>
+          <td>{{row.7}}</td>
+          {% endfor %}
+        </tr>
+      </tbody>
+
+    </table>
+    <form method="POST" action="{% url 'update_promoters_sql' promoter_id %}"><br>
+      {% csrf_token %}
+      <p><h1>Update Promoters</h1></p>
+      <label for="email">E-mail:</label>
+      <input type="text" id="email" name="email" placeholder="email"required value="{{query_response.0.2}}"><br>
+      <label>Gender:</label>
+      <input type="radio" id="male" name="gender" value="Male"required {% if query_response.0.4 == 'Male'%} checked {%endif%}>
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="Female" required {% if query_response.0.4 == 'Female'%} checked {%endif%}>
+      <label for="female">Female</label><br>
+      
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" min="1" max="150" placeholder="Enter Age"required ><br>
+      
+      <label for="companyname">Company name:</label>
+      <input type="text" id="companyname" name="companyname" placeholder="companyname"required ><br>
+      
+      <button type="submit" value="">Submit</button>
+    </form>
+    <a href="{% url 'logoutpage' %}"><button>Logout</button></a>
+  </body>
+</html>
+{%endcomment%}
