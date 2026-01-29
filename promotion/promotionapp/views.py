@@ -333,6 +333,58 @@ def editpromotions(request, promoter_id):
 def after_promoter_login(request):
     return render(request, 'after_promoter_login1.html')
 
+def promoter(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        role = request.POST.get('Role')
+        gender = request.POST.get('gender')
+        age = request.POST.get('age')
+        company_name = request.POST.get('companyname')
+        contact = request.POST.get('contact')
+
+        if role == "Admin":
+            is_superuser = True
+            is_staff = True
+        else:
+            is_superuser = False
+            is_staff = False
+        if age and age.isdigit():
+            age = int(age)
+        else:
+            age = None
+        if User.objects.filter(username=username).exists():
+            return render(
+                request,
+                'promoterregistration.html',
+                {'error': 'Username already exists'}
+            )
+        else:
+            user = User.objects.create_user(
+                username=username,
+                password=password,
+                email=email,
+                gender=gender,
+                age=age,
+                is_user=False,
+                companyname=company_name,
+                contact=contact,
+                is_superuser=is_superuser,
+                is_staff=is_staff,
+                is_active=False,
+                first_name="",
+                last_name=""
+            )
+
+            return render(
+                request,
+                'loginpage.html',
+                {'success': 'Successfully Created'}
+            )
+    else:
+        return render(request, 'promoter.html')
+
 
 
    

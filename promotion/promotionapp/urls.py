@@ -26,6 +26,7 @@ urlpatterns = [
     path('target_filters/', views.target_filters, name='target_filters'),
     path('editpromotions/<int:promoter_id>/', views.editpromotions, name='editpromotions'),
     path('after_promoter_login/', views.after_promoter_login, name='after_promoter_login'),
+    path('promoter/', views.promoter, name='promoter'),
 
 
 ]
